@@ -1,0 +1,12 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+outputs/runs/*/
+!outputs/runs/paper_ratio_study_results/
+!outputs/runs/paper_ratio_study_results/**
+
+# Large files distributed as GitHub Release assets
+data/datasets/*.csv
+data/datasets/*.json
+data/datasets/ratio_samples/
+outputs/runs/paper_ratio_study_results/

@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="920" viewBox="0 0 1800 920" role="img" aria-labelledby="title desc">
+  <title id="title">Overall Procedure of the Proposed Delta Embedding-based Tool-call Mismatch Detection</title>
+  <desc id="desc">A paper-style flow diagram showing dataset construction, mismatched tool-call pair generation, delta embedding feature extraction, model training, evaluation, and ratio sensitivity analysis.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#222222"/>
+    </marker>
+    <marker id="arrowLight" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#555555"/>
+    </marker>
+    <style>
+      .title { font-family: "Times New Roman", Times, serif; font-size: 34px; font-weight: 700; fill: #111111; }
+      .stage { font-family: Arial, Helvetica, sans-serif; font-size: 23px; font-weight: 700; fill: #111111; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 22px; fill: #111111; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #222222; }
+      .tiny { font-family: Arial, Helvetica, sans-serif; font-size: 16px; fill: #333333; }
+      .box { fill: #ffffff; stroke: #222222; stroke-width: 2.4; }
+      .subbox { fill: #f5f5f5; stroke: #333333; stroke-width: 1.8; }
+      .accent { fill: #edf3f8; stroke: #222222; stroke-width: 2.4; }
+      .soft { fill: #f8f8f8; stroke: #555555; stroke-width: 1.6; }
+      .line { stroke: #222222; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+      .lightline { stroke: #555555; stroke-width: 2; fill: none; marker-end: url(#arrowLight); }
+      .dashline { stroke: #555555; stroke-width: 2; fill: none; stroke-dasharray: 8 6; marker-end: url(#arrowLight); }
+    </style>
+  </defs>
+
+  <rect x="20" y="20" width="1760" height="880" fill="#ffffff" stroke="#ffffff"/>
+  <text x="900" y="70" text-anchor="middle" class="title">Overall Procedure of the Proposed Method</text>
+
+  <!-- Stage headers -->
+  <text x="185" y="136" text-anchor="middle" class="stage">Data Source</text>
+  <text x="510" y="136" text-anchor="middle" class="stage">Dataset Construction</text>
+  <text x="860" y="136" text-anchor="middle" class="stage">Feature Extraction</text>
+  <text x="1220" y="136" text-anchor="middle" class="stage">Training and Validation</text>
+  <text x="1585" y="136" text-anchor="middle" class="stage">Evaluation</text>
+
+  <!-- Stage 1 -->
+  <rect x="55" y="170" width="260" height="170" rx="4" class="box"/>
+  <text x="185" y="215" text-anchor="middle" class="label">ToolBench JSON</text>
+  <text x="185" y="249" text-anchor="middle" class="small">successful tool-use</text>
+  <text x="185" y="277" text-anchor="middle" class="small">trajectories</text>
+  <line x1="105" y1="305" x2="265" y2="305" stroke="#777777" stroke-width="1.2"/>
+  <text x="185" y="329" text-anchor="middle" class="tiny">user prompt, called tool</text>
+
+  <rect x="55" y="395" width="260" height="132" rx="4" class="soft"/>
+  <text x="185" y="434" text-anchor="middle" class="label">Public Cleaning</text>
+  <text x="185" y="468" text-anchor="middle" class="small">remove invalid rows</text>
+  <text x="185" y="496" text-anchor="middle" class="small">mask sensitive strings</text>
+
+  <!-- Stage 2 -->
+  <rect x="380" y="170" width="260" height="130" rx="4" class="accent"/>
+  <text x="510" y="211" text-anchor="middle" class="label">Normal Pair</text>
+  <text x="510" y="245" text-anchor="middle" class="small">prompt + true tool</text>
+  <text x="510" y="275" text-anchor="middle" class="small">label = 0</text>
+
+  <rect x="380" y="350" width="260" height="170" rx="4" class="accent"/>
+  <text x="510" y="390" text-anchor="middle" class="label">Mismatch Pair</text>
+  <text x="510" y="424" text-anchor="middle" class="small">same prompt + unrelated</text>
+  <text x="510" y="452" text-anchor="middle" class="small">observed ToolBench tool</text>
+  <text x="510" y="482" text-anchor="middle" class="small">label = 1</text>
+
+  <rect x="380" y="570" width="260" height="132" rx="4" class="soft"/>
+  <text x="510" y="610" text-anchor="middle" class="label">Ratio Study Set</text>
+  <text x="510" y="644" text-anchor="middle" class="small">normal fixed at 100,000</text>
+  <text x="510" y="672" text-anchor="middle" class="small">1:1, 7:3, 8:2, 10:1, 100:1</text>
+
+  <!-- Stage 3 -->
+  <rect x="735" y="170" width="250" height="145" rx="4" class="box"/>
+  <text x="860" y="210" text-anchor="middle" class="label">Sentence Embedding</text>
+  <text x="860" y="244" text-anchor="middle" class="small">u = Embed(prompt)</text>
+  <text x="860" y="274" text-anchor="middle" class="small">t = Embed(tool name)</text>
+
+  <rect x="735" y="380" width="250" height="160" rx="4" class="accent"/>
+  <text x="860" y="420" text-anchor="middle" class="label">Delta Feature</text>
+  <text x="860" y="456" text-anchor="middle" class="small">d = u - t</text>
+  <text x="860" y="486" text-anchor="middle" class="small">signed vector difference</text>
+  <text x="860" y="516" text-anchor="middle" class="small">384 dimensions</text>
+
+  <rect x="735" y="590" width="250" height="112" rx="4" class="soft"/>
+  <text x="860" y="628" text-anchor="middle" class="label">Distribution Check</text>
+  <text x="860" y="662" text-anchor="middle" class="small">L2 norm, PCA, centroid</text>
+
+  <!-- Stage 4 -->
+  <rect x="1085" y="170" width="270" height="145" rx="4" class="box"/>
+  <text x="1220" y="210" text-anchor="middle" class="label">Group Split</text>
+  <text x="1220" y="244" text-anchor="middle" class="small">source_prompt_hash</text>
+  <text x="1220" y="274" text-anchor="middle" class="small">train / valid / test</text>
+
+  <rect x="1085" y="370" width="270" height="225" rx="4" class="accent"/>
+  <text x="1220" y="410" text-anchor="middle" class="label">Lightweight Models</text>
+  <rect x="1125" y="438" width="190" height="34" rx="3" class="subbox"/>
+  <text x="1220" y="462" text-anchor="middle" class="small">LightGBM</text>
+  <rect x="1125" y="482" width="190" height="34" rx="3" class="subbox"/>
+  <text x="1220" y="506" text-anchor="middle" class="small">XGBoost</text>
+  <rect x="1125" y="526" width="190" height="34" rx="3" class="subbox"/>
+  <text x="1220" y="550" text-anchor="middle" class="small">Random Forest</text>
+  <rect x="1125" y="570" width="190" height="34" rx="3" class="subbox"/>
+  <text x="1220" y="594" text-anchor="middle" class="small">Isolation Forest</text>
+
+  <rect x="1085" y="645" width="270" height="90" rx="4" class="soft"/>
+  <text x="1220" y="682" text-anchor="middle" class="label">Threshold Selection</text>
+  <text x="1220" y="714" text-anchor="middle" class="small">validation F1-score</text>
+
+  <!-- Stage 5 -->
+  <rect x="1455" y="170" width="260" height="165" rx="4" class="box"/>
+  <text x="1585" y="210" text-anchor="middle" class="label">Detection Metrics</text>
+  <text x="1585" y="244" text-anchor="middle" class="small">Precision, Recall</text>
+  <text x="1585" y="274" text-anchor="middle" class="small">F1-score, Accuracy</text>
+  <text x="1585" y="304" text-anchor="middle" class="small">AUROC, AUPRC</text>
+
+  <rect x="1455" y="395" width="260" height="132" rx="4" class="box"/>
+  <text x="1585" y="435" text-anchor="middle" class="label">Runtime Analysis</text>
+  <text x="1585" y="469" text-anchor="middle" class="small">model inference time</text>
+  <text x="1585" y="497" text-anchor="middle" class="small">end-to-end latency</text>
+
+  <rect x="1455" y="590" width="260" height="145" rx="4" class="soft"/>
+  <text x="1585" y="630" text-anchor="middle" class="label">Sensitivity Analysis</text>
+  <text x="1585" y="664" text-anchor="middle" class="small">performance under</text>
+  <text x="1585" y="692" text-anchor="middle" class="small">class imbalance</text>
+
+  <!-- Main arrows -->
+  <path d="M315 255 L380 235" class="line"/>
+  <path d="M315 461 L380 435" class="lightline"/>
+  <path d="M640 235 L735 242" class="line"/>
+  <path d="M640 435 L735 460" class="line"/>
+  <path d="M860 315 L860 380" class="line"/>
+  <path d="M985 460 L1085 242" class="line"/>
+  <path d="M1220 315 L1220 370" class="line"/>
+  <path d="M1355 482 L1455 253" class="line"/>
+  <path d="M1355 482 L1455 461" class="lightline"/>
+  <path d="M640 636 L735 646" class="dashline"/>
+  <path d="M985 646 L1085 690" class="dashline"/>
+  <path d="M1355 690 L1455 662" class="dashline"/>
+
+  <!-- Bottom note -->
+  <rect x="210" y="790" width="1380" height="70" rx="4" fill="#ffffff" stroke="#777777" stroke-width="1.4"/>
+  <text x="900" y="819" text-anchor="middle" class="small">
+    The detector verifies semantic consistency between the user prompt and the called tool name before tool execution.
+  </text>
+  <text x="900" y="847" text-anchor="middle" class="small">
+    Only the delta embedding vector is used as the model input; metadata is retained for grouping, auditing, and analysis.
+  </text>
+</svg>

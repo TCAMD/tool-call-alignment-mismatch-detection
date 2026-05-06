@@ -1,0 +1,8 @@
+﻿metric,value
+centroid_l2_distance,0.03708654269576073
+centroid_cosine_similarity,0.9953534007072449
+normal_within_class_mean_l2,0.940805196762085
+mismatch_within_class_mean_l2,1.302476406097412
+normal_projection_mean,0.009658314287662506
+mismatch_projection_mean,0.04674486070871353
+silhouette_score_sampled,0.022691791877150536

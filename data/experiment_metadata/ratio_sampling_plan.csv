@@ -1,0 +1,6 @@
+﻿ratio_name,ratio_label,normal_count,negative_count,total_count,positive_rate,actual_normal_to_negative,unique_source_prompt_hash,normal_negative_pair_overlap,sample_path
+1_1,1:1,100000,100000,200000,0.5,1.0,45880,0,./outputs/runs/paper_ratio_study_results/sampled_dataset_ratio_1_1.csv
+7_3,7:3,100000,42857,142857,0.2999992999993,2.3333411111370372,45880,0,./outputs/runs/paper_ratio_study_results/sampled_dataset_ratio_7_3.csv
+8_2,8:2,100000,25000,125000,0.2,4.0,45880,0,./outputs/runs/paper_ratio_study_results/sampled_dataset_ratio_8_2.csv
+10_1,10:1,100000,10000,110000,0.09090909090909091,10.0,45880,0,./outputs/runs/paper_ratio_study_results/sampled_dataset_ratio_10_1.csv
+100_1,100:1,100000,1000,101000,0.009900990099009901,100.0,45880,0,./outputs/runs/paper_ratio_study_results/sampled_dataset_ratio_100_1.csv

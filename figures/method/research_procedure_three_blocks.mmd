@@ -1,0 +1,9 @@
+flowchart LR
+    A["<b>Dataset Construction</b><br/>1. Collect ToolBench Data<br/>2. Extract Label 0 Pairs<br/>3. Generate Label 1 Pairs<br/>4. Clean and Filter Data"]
+    B["<b>Feature Generation<br/>and Training</b><br/>1. Generate Embeddings<br/>2. Extract Delta Vectors<br/>3. Apply Group Split<br/>4. Train Detection Models"]
+    C["<b>Evaluation<br/>and Interpretation</b><br/>1. Balanced Setting<br/>2. Class-Ratio Settings<br/>3. Model Comparison<br/>4. Result Analysis"]
+
+    A --> B --> C
+
+    classDef block fill:#ffffff,stroke:#222222,stroke-width:1.5px,color:#111111;
+    class A,B,C block;
