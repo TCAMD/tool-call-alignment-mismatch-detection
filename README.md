@@ -37,9 +37,22 @@ label = 1: Mismatch prompt-tool pair
 paper-data-v1.0.zip
 ```
 
-다운로드한 zip 파일은 이 저장소의 최상위 폴더에 압축 해제합니다.
+다운로드한 zip 파일은 이 저장소의 최상위 폴더에 압축 해제하는 것을 권장합니다. 예를 들어 PowerShell에서는 저장소 최상위 폴더에서 다음 명령을 실행합니다.
 
-압축을 정상적으로 풀면 다음 경로가 생깁니다.
+```powershell
+Expand-Archive .\paper-data-v1.0.zip -DestinationPath . -Force
+```
+
+Windows 탐색기의 "Extract All"을 사용하면 기본적으로 `paper-data-v1.0` 폴더가 한 겹 생길 수 있습니다. 이 경우에도 노트북이 다음 두 경로를 모두 자동으로 탐색하도록 되어 있으므로, 반드시 경로를 직접 수정할 필요는 없습니다.
+
+```text
+data/datasets/...
+paper-data-v1.0/data/datasets/...
+```
+
+다만 가장 단순한 구조를 원한다면 `paper-data-v1.0` 폴더 안의 `data/`와 `outputs/` 폴더를 저장소 최상위로 옮기면 됩니다.
+
+권장 구조로 압축을 풀면 다음 경로가 생깁니다.
 
 ```text
 data/datasets/toolbench_mismatch_dataset.csv
@@ -51,7 +64,7 @@ data/datasets/ratio_samples/ratio_sample_100_1.csv
 outputs/runs/paper_ratio_study_results/
 ```
 
-노트북은 저장소 최상위 폴더 기준 상대경로를 사용하도록 작성되어 있으므로, 위 경로대로 압축을 풀면 노트북 내부 경로를 수정할 필요가 없습니다.
+노트북은 저장소 최상위 폴더와 `paper-data-v1.0` 하위 폴더를 모두 탐색하도록 작성되어 있으므로, 일반적인 압축 해제 방식에서는 노트북 내부 경로를 수정할 필요가 없습니다.
 
 ### 4. 환경 설치
 
@@ -172,9 +185,22 @@ If you clone or download this repository, the code and figures are included, but
 paper-data-v1.0.zip
 ```
 
-Unzip this file at the repository root.
+The recommended option is to unzip this file at the repository root. For example, run the following command from the repository root in PowerShell.
 
-After extraction, the following paths should exist.
+```powershell
+Expand-Archive .\paper-data-v1.0.zip -DestinationPath . -Force
+```
+
+If you use Windows Explorer's "Extract All" option, Windows may create one extra `paper-data-v1.0` directory. The notebooks are configured to automatically search both of the following layouts, so manual path editing is usually not required.
+
+```text
+data/datasets/...
+paper-data-v1.0/data/datasets/...
+```
+
+If you prefer the simplest repository layout, move the `data/` and `outputs/` folders from inside `paper-data-v1.0/` to the repository root.
+
+In the recommended layout, the following paths should exist.
 
 ```text
 data/datasets/toolbench_mismatch_dataset.csv
@@ -186,7 +212,7 @@ data/datasets/ratio_samples/ratio_sample_100_1.csv
 outputs/runs/paper_ratio_study_results/
 ```
 
-The notebooks use repository-relative paths, so no notebook path editing is required if the asset is extracted at the repository root.
+The notebooks search both the repository root and the optional `paper-data-v1.0` extraction folder, so no notebook path editing is required for the usual extraction layouts.
 
 ### 4. Environment Setup
 
